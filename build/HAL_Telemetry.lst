@@ -1,0 +1,251 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"HAL_Telemetry.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/HAL_Telemetry.c"
+  20              		.section	.text.Telemetry_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	Telemetry_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	Telemetry_Init:
+  28              	.LVL0:
+  29              	.LFB137:
+   1:Core/Src/HAL_Telemetry.c **** #include "HAL_Telemetry.h"
+   2:Core/Src/HAL_Telemetry.c **** #include <stdio.h>
+   3:Core/Src/HAL_Telemetry.c **** #include <string.h>
+   4:Core/Src/HAL_Telemetry.c **** 
+   5:Core/Src/HAL_Telemetry.c **** static UART_HandleTypeDef *telemetry_uart;
+   6:Core/Src/HAL_Telemetry.c **** static char tx_buffer[128];
+   7:Core/Src/HAL_Telemetry.c **** 
+   8:Core/Src/HAL_Telemetry.c **** void Telemetry_Init(UART_HandleTypeDef *huart) {
+  30              		.loc 1 8 48 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+   9:Core/Src/HAL_Telemetry.c ****     telemetry_uart = huart;
+  35              		.loc 1 9 5 view .LVU1
+  36              		.loc 1 9 20 is_stmt 0 view .LVU2
+  37 0000 014B     		ldr	r3, .L2
+  38 0002 1860     		str	r0, [r3]
+  10:Core/Src/HAL_Telemetry.c **** }
+  39              		.loc 1 10 1 view .LVU3
+  40 0004 7047     		bx	lr
+  41              	.L3:
+  42 0006 00BF     		.align	2
+  43              	.L2:
+  44 0008 00000000 		.word	telemetry_uart
+  45              		.cfi_endproc
+  46              	.LFE137:
+  48              		.section	.rodata.Telemetry_SendSystemState.str1.4,"aMS",%progbits,1
+  49              		.align	2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s 			page 2
+
+
+  50              	.LC0:
+  51 0000 4E4F524D 		.ascii	"NORMAL\000"
+  51      414C00
+  52 0007 00       		.align	2
+  53              	.LC1:
+  54 0008 5741524E 		.ascii	"WARNING\000"
+  54      494E4700 
+  55              		.align	2
+  56              	.LC2:
+  57 0010 454D4552 		.ascii	"EMERGENCY_BRAKE\000"
+  57      47454E43 
+  57      595F4252 
+  57      414B4500 
+  58              		.align	2
+  59              	.LC3:
+  60 0020 7B225374 		.ascii	"{\"State\":\"%s\", \"Distance_cm\":%lu, \"PWM\":%u}"
+  60      61746522 
+  60      3A222573 
+  60      222C2022 
+  60      44697374 
+  61 004b 0D0A00   		.ascii	"\015\012\000"
+  62              		.section	.text.Telemetry_SendSystemState,"ax",%progbits
+  63              		.align	1
+  64              		.global	Telemetry_SendSystemState
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  69              	Telemetry_SendSystemState:
+  70              	.LVL1:
+  71              	.LFB138:
+  11:Core/Src/HAL_Telemetry.c **** 
+  12:Core/Src/HAL_Telemetry.c **** void Telemetry_SendSystemState(uint8_t state, uint32_t distance, uint16_t motor_pwm) {
+  72              		.loc 1 12 86 is_stmt 1 view -0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  13:Core/Src/HAL_Telemetry.c ****     if (telemetry_uart->gState == HAL_UART_STATE_READY) {
+  76              		.loc 1 13 5 view .LVU5
+  77              		.loc 1 13 23 is_stmt 0 view .LVU6
+  78 0000 114B     		ldr	r3, .L15
+  79 0002 1B68     		ldr	r3, [r3]
+  80 0004 93F84130 		ldrb	r3, [r3, #65]	@ zero_extendqisi2
+  81              		.loc 1 13 8 view .LVU7
+  82 0008 202B     		cmp	r3, #32
+  83 000a 00D0     		beq	.L13
+  84 000c 7047     		bx	lr
+  85              	.L13:
+  12:Core/Src/HAL_Telemetry.c ****     if (telemetry_uart->gState == HAL_UART_STATE_READY) {
+  86              		.loc 1 12 86 view .LVU8
+  87 000e 10B5     		push	{r4, lr}
+  88              	.LCFI0:
+  89              		.cfi_def_cfa_offset 8
+  90              		.cfi_offset 4, -8
+  91              		.cfi_offset 14, -4
+  92 0010 82B0     		sub	sp, sp, #8
+  93              	.LCFI1:
+  94              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s 			page 3
+
+
+  95              	.LBB2:
+  14:Core/Src/HAL_Telemetry.c ****         
+  15:Core/Src/HAL_Telemetry.c ****         char* st_str;
+  96              		.loc 1 15 9 is_stmt 1 view .LVU9
+  16:Core/Src/HAL_Telemetry.c ****         if (state == 0) st_str = "NORMAL";
+  97              		.loc 1 16 9 view .LVU10
+  98              		.loc 1 16 12 is_stmt 0 view .LVU11
+  99 0012 28B1     		cbz	r0, .L7
+  17:Core/Src/HAL_Telemetry.c ****         else if (state == 1) st_str = "WARNING";
+ 100              		.loc 1 17 14 is_stmt 1 view .LVU12
+ 101              		.loc 1 17 17 is_stmt 0 view .LVU13
+ 102 0014 0128     		cmp	r0, #1
+ 103 0016 01D0     		beq	.L14
+  18:Core/Src/HAL_Telemetry.c ****         else st_str = "EMERGENCY_BRAKE";
+ 104              		.loc 1 18 21 view .LVU14
+ 105 0018 0C4B     		ldr	r3, .L15+4
+ 106 001a 02E0     		b	.L6
+ 107              	.L14:
+  17:Core/Src/HAL_Telemetry.c ****         else if (state == 1) st_str = "WARNING";
+ 108              		.loc 1 17 37 discriminator 1 view .LVU15
+ 109 001c 0C4B     		ldr	r3, .L15+8
+ 110 001e 00E0     		b	.L6
+ 111              	.L7:
+  16:Core/Src/HAL_Telemetry.c ****         if (state == 0) st_str = "NORMAL";
+ 112              		.loc 1 16 32 discriminator 1 view .LVU16
+ 113 0020 0C4B     		ldr	r3, .L15+12
+ 114              	.L6:
+ 115              	.LVL2:
+  19:Core/Src/HAL_Telemetry.c **** 
+  20:Core/Src/HAL_Telemetry.c ****         snprintf(tx_buffer, sizeof(tx_buffer), 
+ 116              		.loc 1 20 9 is_stmt 1 view .LVU17
+ 117 0022 0D4C     		ldr	r4, .L15+16
+ 118 0024 0192     		str	r2, [sp, #4]
+ 119 0026 0091     		str	r1, [sp]
+ 120 0028 0C4A     		ldr	r2, .L15+20
+ 121              	.LVL3:
+ 122              		.loc 1 20 9 is_stmt 0 view .LVU18
+ 123 002a 8021     		movs	r1, #128
+ 124              	.LVL4:
+ 125              		.loc 1 20 9 view .LVU19
+ 126 002c 2046     		mov	r0, r4
+ 127              	.LVL5:
+ 128              		.loc 1 20 9 view .LVU20
+ 129 002e FFF7FEFF 		bl	snprintf
+ 130              	.LVL6:
+  21:Core/Src/HAL_Telemetry.c ****                  "{\"State\":\"%s\", \"Distance_cm\":%lu, \"PWM\":%u}\r\n", 
+  22:Core/Src/HAL_Telemetry.c ****                  st_str, distance, motor_pwm);
+  23:Core/Src/HAL_Telemetry.c **** 
+  24:Core/Src/HAL_Telemetry.c ****         HAL_UART_Transmit_DMA(telemetry_uart, (uint8_t*)tx_buffer, strlen(tx_buffer));
+ 131              		.loc 1 24 9 is_stmt 1 view .LVU21
+ 132              		.loc 1 24 68 is_stmt 0 view .LVU22
+ 133 0032 2046     		mov	r0, r4
+ 134 0034 FFF7FEFF 		bl	strlen
+ 135              	.LVL7:
+ 136              		.loc 1 24 9 discriminator 1 view .LVU23
+ 137 0038 82B2     		uxth	r2, r0
+ 138 003a 2146     		mov	r1, r4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s 			page 4
+
+
+ 139 003c 024B     		ldr	r3, .L15
+ 140 003e 1868     		ldr	r0, [r3]
+ 141 0040 FFF7FEFF 		bl	HAL_UART_Transmit_DMA
+ 142              	.LVL8:
+ 143              	.LBE2:
+  25:Core/Src/HAL_Telemetry.c ****     }
+  26:Core/Src/HAL_Telemetry.c **** }...
+ 144              		.loc 1 26 1 view .LVU24
+ 145 0044 02B0     		add	sp, sp, #8
+ 146              	.LCFI2:
+ 147              		.cfi_def_cfa_offset 8
+ 148              		@ sp needed
+ 149 0046 10BD     		pop	{r4, pc}
+ 150              	.L16:
+ 151              		.align	2
+ 152              	.L15:
+ 153 0048 00000000 		.word	telemetry_uart
+ 154 004c 10000000 		.word	.LC2
+ 155 0050 08000000 		.word	.LC1
+ 156 0054 00000000 		.word	.LC0
+ 157 0058 00000000 		.word	tx_buffer
+ 158 005c 20000000 		.word	.LC3
+ 159              		.cfi_endproc
+ 160              	.LFE138:
+ 162              		.section	.bss.tx_buffer,"aw",%nobits
+ 163              		.align	2
+ 166              	tx_buffer:
+ 167 0000 00000000 		.space	128
+ 167      00000000 
+ 167      00000000 
+ 167      00000000 
+ 167      00000000 
+ 168              		.section	.bss.telemetry_uart,"aw",%nobits
+ 169              		.align	2
+ 172              	telemetry_uart:
+ 173 0000 00000000 		.space	4
+ 174              		.text
+ 175              	.Letext0:
+ 176              		.file 2 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 177              		.file 3 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 178              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 179              		.file 5 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/inc
+ 180              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 181              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 182              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 183              		.file 9 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 184              		.file 10 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/..
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 HAL_Telemetry.c
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:21     .text.Telemetry_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:27     .text.Telemetry_Init:00000000 Telemetry_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:44     .text.Telemetry_Init:00000008 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:172    .bss.telemetry_uart:00000000 telemetry_uart
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:49     .rodata.Telemetry_SendSystemState.str1.4:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:63     .text.Telemetry_SendSystemState:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:69     .text.Telemetry_SendSystemState:00000000 Telemetry_SendSystemState
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:153    .text.Telemetry_SendSystemState:00000048 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:166    .bss.tx_buffer:00000000 tx_buffer
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:163    .bss.tx_buffer:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccg3CSsd.s:169    .bss.telemetry_uart:00000000 $d
+
+UNDEFINED SYMBOLS
+snprintf
+strlen
+HAL_UART_Transmit_DMA

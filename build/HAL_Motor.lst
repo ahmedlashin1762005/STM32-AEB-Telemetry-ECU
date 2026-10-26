@@ -1,0 +1,257 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"HAL_Motor.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/HAL_Motor.c"
+  20              		.section	.text.Motor_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	Motor_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	Motor_Init:
+  28              	.LVL0:
+  29              	.LFB134:
+   1:Core/Src/HAL_Motor.c **** #include "HAL_Motor.h"
+   2:Core/Src/HAL_Motor.c **** 
+   3:Core/Src/HAL_Motor.c **** static TIM_HandleTypeDef *motor_htim;
+   4:Core/Src/HAL_Motor.c **** static uint32_t motor_channel;
+   5:Core/Src/HAL_Motor.c **** 
+   6:Core/Src/HAL_Motor.c **** void Motor_Init(TIM_HandleTypeDef *htim, uint32_t channel) {
+  30              		.loc 1 6 60 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 6 60 is_stmt 0 view .LVU1
+  35 0000 08B5     		push	{r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+   7:Core/Src/HAL_Motor.c ****     motor_htim = htim;
+  40              		.loc 1 7 5 is_stmt 1 view .LVU2
+  41              		.loc 1 7 16 is_stmt 0 view .LVU3
+  42 0002 034B     		ldr	r3, .L3
+  43 0004 1860     		str	r0, [r3]
+   8:Core/Src/HAL_Motor.c ****     motor_channel = channel;
+  44              		.loc 1 8 5 is_stmt 1 view .LVU4
+  45              		.loc 1 8 19 is_stmt 0 view .LVU5
+  46 0006 034B     		ldr	r3, .L3+4
+  47 0008 1960     		str	r1, [r3]
+   9:Core/Src/HAL_Motor.c ****     HAL_TIM_PWM_Start(motor_htim, motor_channel);
+  48              		.loc 1 9 5 is_stmt 1 view .LVU6
+  49 000a FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s 			page 2
+
+
+  50              	.LVL1:
+  10:Core/Src/HAL_Motor.c **** }
+  51              		.loc 1 10 1 is_stmt 0 view .LVU7
+  52 000e 08BD     		pop	{r3, pc}
+  53              	.L4:
+  54              		.align	2
+  55              	.L3:
+  56 0010 00000000 		.word	motor_htim
+  57 0014 00000000 		.word	motor_channel
+  58              		.cfi_endproc
+  59              	.LFE134:
+  61              		.section	.text.Motor_SetSpeedAndDir,"ax",%progbits
+  62              		.align	1
+  63              		.global	Motor_SetSpeedAndDir
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  68              	Motor_SetSpeedAndDir:
+  69              	.LVL2:
+  70              	.LFB135:
+  11:Core/Src/HAL_Motor.c **** 
+  12:Core/Src/HAL_Motor.c **** void Motor_SetSpeedAndDir(uint16_t speed, uint8_t dir) {
+  71              		.loc 1 12 56 is_stmt 1 view -0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              		.loc 1 12 56 is_stmt 0 view .LVU9
+  76 0000 10B5     		push	{r4, lr}
+  77              	.LCFI1:
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 4, -8
+  80              		.cfi_offset 14, -4
+  13:Core/Src/HAL_Motor.c ****     __HAL_TIM_SET_COMPARE(motor_htim, motor_channel, speed);
+  81              		.loc 1 13 5 is_stmt 1 view .LVU10
+  82 0002 1B4B     		ldr	r3, .L17
+  83 0004 1B68     		ldr	r3, [r3]
+  84 0006 3BB9     		cbnz	r3, .L6
+  85              		.loc 1 13 5 is_stmt 0 discriminator 1 view .LVU11
+  86 0008 1A4B     		ldr	r3, .L17+4
+  87 000a 1B68     		ldr	r3, [r3]
+  88 000c 1B68     		ldr	r3, [r3]
+  89 000e 5863     		str	r0, [r3, #52]
+  90              	.L7:
+  14:Core/Src/HAL_Motor.c ****     
+  15:Core/Src/HAL_Motor.c ****     if (dir == MOTOR_DIR_FORWARD) {
+  91              		.loc 1 15 5 is_stmt 1 view .LVU12
+  92              		.loc 1 15 8 is_stmt 0 view .LVU13
+  93 0010 0129     		cmp	r1, #1
+  94 0012 14D0     		beq	.L13
+  16:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+  17:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+  18:Core/Src/HAL_Motor.c ****     } else if (dir == MOTOR_DIR_STOP) {
+  95              		.loc 1 18 12 is_stmt 1 view .LVU14
+  96              		.loc 1 18 15 is_stmt 0 view .LVU15
+  97 0014 F9B1     		cbz	r1, .L14
+  98              	.LVL3:
+  99              	.L5:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s 			page 3
+
+
+  19:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+  20:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+  21:Core/Src/HAL_Motor.c ****     }
+  22:Core/Src/HAL_Motor.c **** }...
+ 100              		.loc 1 22 1 view .LVU16
+ 101 0016 10BD     		pop	{r4, pc}
+ 102              	.LVL4:
+ 103              	.L6:
+  13:Core/Src/HAL_Motor.c ****     __HAL_TIM_SET_COMPARE(motor_htim, motor_channel, speed);
+ 104              		.loc 1 13 5 discriminator 2 view .LVU17
+ 105 0018 042B     		cmp	r3, #4
+ 106 001a 06D0     		beq	.L15
+  13:Core/Src/HAL_Motor.c ****     __HAL_TIM_SET_COMPARE(motor_htim, motor_channel, speed);
+ 107              		.loc 1 13 5 discriminator 4 view .LVU18
+ 108 001c 082B     		cmp	r3, #8
+ 109 001e 09D0     		beq	.L16
+  13:Core/Src/HAL_Motor.c ****     __HAL_TIM_SET_COMPARE(motor_htim, motor_channel, speed);
+ 110              		.loc 1 13 5 discriminator 7 view .LVU19
+ 111 0020 144B     		ldr	r3, .L17+4
+ 112 0022 1B68     		ldr	r3, [r3]
+ 113 0024 1B68     		ldr	r3, [r3]
+ 114 0026 1864     		str	r0, [r3, #64]
+ 115 0028 F2E7     		b	.L7
+ 116              	.L15:
+  13:Core/Src/HAL_Motor.c ****     __HAL_TIM_SET_COMPARE(motor_htim, motor_channel, speed);
+ 117              		.loc 1 13 5 discriminator 3 view .LVU20
+ 118 002a 124B     		ldr	r3, .L17+4
+ 119 002c 1B68     		ldr	r3, [r3]
+ 120 002e 1B68     		ldr	r3, [r3]
+ 121 0030 9863     		str	r0, [r3, #56]
+ 122 0032 EDE7     		b	.L7
+ 123              	.L16:
+  13:Core/Src/HAL_Motor.c ****     __HAL_TIM_SET_COMPARE(motor_htim, motor_channel, speed);
+ 124              		.loc 1 13 5 discriminator 6 view .LVU21
+ 125 0034 0F4B     		ldr	r3, .L17+4
+ 126 0036 1B68     		ldr	r3, [r3]
+ 127 0038 1B68     		ldr	r3, [r3]
+ 128 003a D863     		str	r0, [r3, #60]
+ 129 003c E8E7     		b	.L7
+ 130              	.L13:
+  16:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+ 131              		.loc 1 16 9 is_stmt 1 view .LVU22
+ 132 003e 0E4C     		ldr	r4, .L17+8
+ 133 0040 0122     		movs	r2, #1
+ 134 0042 2021     		movs	r1, #32
+ 135              	.LVL5:
+  16:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+ 136              		.loc 1 16 9 is_stmt 0 view .LVU23
+ 137 0044 2046     		mov	r0, r4
+ 138              	.LVL6:
+  16:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+ 139              		.loc 1 16 9 view .LVU24
+ 140 0046 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 141              	.LVL7:
+  17:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+ 142              		.loc 1 17 9 is_stmt 1 view .LVU25
+ 143 004a 0022     		movs	r2, #0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s 			page 4
+
+
+ 144 004c 1021     		movs	r1, #16
+ 145 004e 2046     		mov	r0, r4
+ 146 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 147              	.LVL8:
+ 148 0054 DFE7     		b	.L5
+ 149              	.LVL9:
+ 150              	.L14:
+  19:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+ 151              		.loc 1 19 9 view .LVU26
+ 152 0056 084C     		ldr	r4, .L17+8
+ 153 0058 0022     		movs	r2, #0
+ 154 005a 2021     		movs	r1, #32
+ 155              	.LVL10:
+  19:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+ 156              		.loc 1 19 9 is_stmt 0 view .LVU27
+ 157 005c 2046     		mov	r0, r4
+ 158              	.LVL11:
+  19:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+ 159              		.loc 1 19 9 view .LVU28
+ 160 005e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 161              	.LVL12:
+  20:Core/Src/HAL_Motor.c ****         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+ 162              		.loc 1 20 9 is_stmt 1 view .LVU29
+ 163 0062 0022     		movs	r2, #0
+ 164 0064 1021     		movs	r1, #16
+ 165 0066 2046     		mov	r0, r4
+ 166 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 167              	.LVL13:
+ 168              		.loc 1 22 1 is_stmt 0 view .LVU30
+ 169 006c D3E7     		b	.L5
+ 170              	.L18:
+ 171 006e 00BF     		.align	2
+ 172              	.L17:
+ 173 0070 00000000 		.word	motor_channel
+ 174 0074 00000000 		.word	motor_htim
+ 175 0078 00040240 		.word	1073873920
+ 176              		.cfi_endproc
+ 177              	.LFE135:
+ 179              		.section	.bss.motor_channel,"aw",%nobits
+ 180              		.align	2
+ 183              	motor_channel:
+ 184 0000 00000000 		.space	4
+ 185              		.section	.bss.motor_htim,"aw",%nobits
+ 186              		.align	2
+ 189              	motor_htim:
+ 190 0000 00000000 		.space	4
+ 191              		.text
+ 192              	.Letext0:
+ 193              		.file 2 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 194              		.file 3 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 195              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 196              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 197              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 198              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 199              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 HAL_Motor.c
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:21     .text.Motor_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:27     .text.Motor_Init:00000000 Motor_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:56     .text.Motor_Init:00000010 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:189    .bss.motor_htim:00000000 motor_htim
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:183    .bss.motor_channel:00000000 motor_channel
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:62     .text.Motor_SetSpeedAndDir:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:68     .text.Motor_SetSpeedAndDir:00000000 Motor_SetSpeedAndDir
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:173    .text.Motor_SetSpeedAndDir:00000070 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:180    .bss.motor_channel:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccbvltGu.s:186    .bss.motor_htim:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_TIM_PWM_Start
+HAL_GPIO_WritePin

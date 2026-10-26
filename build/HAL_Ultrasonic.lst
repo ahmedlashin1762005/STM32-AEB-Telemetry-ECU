@@ -1,0 +1,454 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"HAL_Ultrasonic.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/HAL_Ultrasonic.c"
+  20              		.section	.text.delay_us,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	delay_us:
+  27              	.LVL0:
+  28              	.LFB135:
+   1:Core/Src/HAL_Ultrasonic.c **** #include "HAL_Ultrasonic.h"
+   2:Core/Src/HAL_Ultrasonic.c **** 
+   3:Core/Src/HAL_Ultrasonic.c **** static TIM_HandleTypeDef *us_htim;
+   4:Core/Src/HAL_Ultrasonic.c **** 
+   5:Core/Src/HAL_Ultrasonic.c **** void Ultrasonic_Init(TIM_HandleTypeDef *htim) {
+   6:Core/Src/HAL_Ultrasonic.c ****     us_htim = htim;
+   7:Core/Src/HAL_Ultrasonic.c ****     __HAL_RCC_TIM1_CLK_ENABLE();
+   8:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+   9:Core/Src/HAL_Ultrasonic.c **** }
+  10:Core/Src/HAL_Ultrasonic.c **** 
+  11:Core/Src/HAL_Ultrasonic.c **** static void delay_us(uint16_t us) {
+  29              		.loc 1 11 35 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  12:Core/Src/HAL_Ultrasonic.c ****     __HAL_TIM_SET_COUNTER(us_htim, 0);
+  34              		.loc 1 12 5 view .LVU1
+  35 0000 044B     		ldr	r3, .L3
+  36 0002 1A68     		ldr	r2, [r3]
+  37 0004 1368     		ldr	r3, [r2]
+  38 0006 0021     		movs	r1, #0
+  39 0008 5962     		str	r1, [r3, #36]
+  13:Core/Src/HAL_Ultrasonic.c ****     while (__HAL_TIM_GET_COUNTER(us_htim) < us);
+  40              		.loc 1 13 5 view .LVU2
+  41              	.L2:
+  42              		.loc 1 13 43 discriminator 1 view .LVU3
+  43              		.loc 1 13 12 is_stmt 0 discriminator 1 view .LVU4
+  44 000a 1368     		ldr	r3, [r2]
+  45 000c 5B6A     		ldr	r3, [r3, #36]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 2
+
+
+  46              		.loc 1 13 43 discriminator 1 view .LVU5
+  47 000e 8342     		cmp	r3, r0
+  48 0010 FBD3     		bcc	.L2
+  14:Core/Src/HAL_Ultrasonic.c **** }
+  49              		.loc 1 14 1 view .LVU6
+  50 0012 7047     		bx	lr
+  51              	.L4:
+  52              		.align	2
+  53              	.L3:
+  54 0014 00000000 		.word	us_htim
+  55              		.cfi_endproc
+  56              	.LFE135:
+  58              		.section	.text.Ultrasonic_Init,"ax",%progbits
+  59              		.align	1
+  60              		.global	Ultrasonic_Init
+  61              		.syntax unified
+  62              		.thumb
+  63              		.thumb_func
+  65              	Ultrasonic_Init:
+  66              	.LVL1:
+  67              	.LFB134:
+   5:Core/Src/HAL_Ultrasonic.c ****     us_htim = htim;
+  68              		.loc 1 5 47 is_stmt 1 view -0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 8
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+   5:Core/Src/HAL_Ultrasonic.c ****     us_htim = htim;
+  72              		.loc 1 5 47 is_stmt 0 view .LVU8
+  73 0000 00B5     		push	{lr}
+  74              	.LCFI0:
+  75              		.cfi_def_cfa_offset 4
+  76              		.cfi_offset 14, -4
+  77 0002 83B0     		sub	sp, sp, #12
+  78              	.LCFI1:
+  79              		.cfi_def_cfa_offset 16
+   6:Core/Src/HAL_Ultrasonic.c ****     __HAL_RCC_TIM1_CLK_ENABLE();
+  80              		.loc 1 6 5 is_stmt 1 view .LVU9
+   6:Core/Src/HAL_Ultrasonic.c ****     __HAL_RCC_TIM1_CLK_ENABLE();
+  81              		.loc 1 6 13 is_stmt 0 view .LVU10
+  82 0004 084B     		ldr	r3, .L7
+  83 0006 1860     		str	r0, [r3]
+   7:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+  84              		.loc 1 7 5 is_stmt 1 view .LVU11
+  85              	.LBB2:
+   7:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+  86              		.loc 1 7 5 view .LVU12
+  87 0008 0023     		movs	r3, #0
+  88 000a 0193     		str	r3, [sp, #4]
+   7:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+  89              		.loc 1 7 5 view .LVU13
+  90 000c 074B     		ldr	r3, .L7+4
+  91 000e 5A6C     		ldr	r2, [r3, #68]
+  92 0010 42F00102 		orr	r2, r2, #1
+  93 0014 5A64     		str	r2, [r3, #68]
+   7:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+  94              		.loc 1 7 5 view .LVU14
+  95 0016 5B6C     		ldr	r3, [r3, #68]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 3
+
+
+  96 0018 03F00103 		and	r3, r3, #1
+  97 001c 0193     		str	r3, [sp, #4]
+   7:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+  98              		.loc 1 7 5 view .LVU15
+  99 001e 019B     		ldr	r3, [sp, #4]
+ 100              	.LBE2:
+   7:Core/Src/HAL_Ultrasonic.c ****     HAL_TIM_Base_Start(us_htim);
+ 101              		.loc 1 7 5 view .LVU16
+   8:Core/Src/HAL_Ultrasonic.c **** }
+ 102              		.loc 1 8 5 view .LVU17
+ 103 0020 FFF7FEFF 		bl	HAL_TIM_Base_Start
+ 104              	.LVL2:
+   9:Core/Src/HAL_Ultrasonic.c **** 
+ 105              		.loc 1 9 1 is_stmt 0 view .LVU18
+ 106 0024 03B0     		add	sp, sp, #12
+ 107              	.LCFI2:
+ 108              		.cfi_def_cfa_offset 4
+ 109              		@ sp needed
+ 110 0026 00BD     		pop	{pc}
+ 111              	.L8:
+ 112              		.align	2
+ 113              	.L7:
+ 114 0028 00000000 		.word	us_htim
+ 115 002c 00380240 		.word	1073887232
+ 116              		.cfi_endproc
+ 117              	.LFE134:
+ 119              		.section	.text.Ultrasonic_Read_Distance,"ax",%progbits
+ 120              		.align	1
+ 121              		.global	Ultrasonic_Read_Distance
+ 122              		.syntax unified
+ 123              		.thumb
+ 124              		.thumb_func
+ 126              	Ultrasonic_Read_Distance:
+ 127              	.LFB136:
+  15:Core/Src/HAL_Ultrasonic.c **** 
+  16:Core/Src/HAL_Ultrasonic.c **** uint32_t Ultrasonic_Read_Distance(void) {
+ 128              		.loc 1 16 41 is_stmt 1 view -0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132 0000 38B5     		push	{r3, r4, r5, lr}
+ 133              	.LCFI3:
+ 134              		.cfi_def_cfa_offset 16
+ 135              		.cfi_offset 3, -16
+ 136              		.cfi_offset 4, -12
+ 137              		.cfi_offset 5, -8
+ 138              		.cfi_offset 14, -4
+  17:Core/Src/HAL_Ultrasonic.c ****     uint32_t pMillis;
+ 139              		.loc 1 17 5 view .LVU20
+  18:Core/Src/HAL_Ultrasonic.c ****     uint32_t Value1 = 0;
+ 140              		.loc 1 18 5 view .LVU21
+ 141              	.LVL3:
+  19:Core/Src/HAL_Ultrasonic.c ****     uint32_t Value2 = 0;
+ 142              		.loc 1 19 5 view .LVU22
+  20:Core/Src/HAL_Ultrasonic.c **** 
+  21:Core/Src/HAL_Ultrasonic.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+ 143              		.loc 1 21 5 view .LVU23
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 4
+
+
+ 144 0002 2C4C     		ldr	r4, .L23
+ 145 0004 0022     		movs	r2, #0
+ 146 0006 4FF40071 		mov	r1, #512
+ 147 000a 2046     		mov	r0, r4
+ 148 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 149              	.LVL4:
+  22:Core/Src/HAL_Ultrasonic.c ****     delay_us(3);
+ 150              		.loc 1 22 5 view .LVU24
+ 151 0010 0320     		movs	r0, #3
+ 152 0012 FFF7FEFF 		bl	delay_us
+ 153              	.LVL5:
+  23:Core/Src/HAL_Ultrasonic.c ****     
+  24:Core/Src/HAL_Ultrasonic.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
+ 154              		.loc 1 24 5 view .LVU25
+ 155 0016 0122     		movs	r2, #1
+ 156 0018 4FF40071 		mov	r1, #512
+ 157 001c 2046     		mov	r0, r4
+ 158 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 159              	.LVL6:
+  25:Core/Src/HAL_Ultrasonic.c ****     delay_us(10);
+ 160              		.loc 1 25 5 view .LVU26
+ 161 0022 0A20     		movs	r0, #10
+ 162 0024 FFF7FEFF 		bl	delay_us
+ 163              	.LVL7:
+  26:Core/Src/HAL_Ultrasonic.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+ 164              		.loc 1 26 5 view .LVU27
+ 165 0028 0022     		movs	r2, #0
+ 166 002a 4FF40071 		mov	r1, #512
+ 167 002e 2046     		mov	r0, r4
+ 168 0030 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 169              	.LVL8:
+  27:Core/Src/HAL_Ultrasonic.c **** 
+  28:Core/Src/HAL_Ultrasonic.c ****     pMillis = HAL_GetTick();
+ 170              		.loc 1 28 5 view .LVU28
+ 171              		.loc 1 28 15 is_stmt 0 view .LVU29
+ 172 0034 FFF7FEFF 		bl	HAL_GetTick
+ 173              	.LVL9:
+ 174 0038 0446     		mov	r4, r0
+ 175              	.LVL10:
+  29:Core/Src/HAL_Ultrasonic.c ****     while (!(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10))) {
+ 176              		.loc 1 29 5 is_stmt 1 view .LVU30
+ 177              	.L10:
+ 178              		.loc 1 29 12 view .LVU31
+ 179              		.loc 1 29 14 is_stmt 0 view .LVU32
+ 180 003a 4FF48061 		mov	r1, #1024
+ 181 003e 1D48     		ldr	r0, .L23
+ 182 0040 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 183              	.LVL11:
+ 184              		.loc 1 29 12 discriminator 1 view .LVU33
+ 185 0044 38B9     		cbnz	r0, .L21
+  30:Core/Src/HAL_Ultrasonic.c ****         if ((HAL_GetTick() - pMillis) > 10) {
+ 186              		.loc 1 30 9 is_stmt 1 view .LVU34
+ 187              		.loc 1 30 14 is_stmt 0 view .LVU35
+ 188 0046 FFF7FEFF 		bl	HAL_GetTick
+ 189              	.LVL12:
+ 190              		.loc 1 30 28 discriminator 1 view .LVU36
+ 191 004a 001B     		subs	r0, r0, r4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 5
+
+
+ 192              		.loc 1 30 12 discriminator 1 view .LVU37
+ 193 004c 0A28     		cmp	r0, #10
+ 194 004e F4D9     		bls	.L10
+  31:Core/Src/HAL_Ultrasonic.c ****             return 999; 
+ 195              		.loc 1 31 20 view .LVU38
+ 196 0050 40F2E730 		movw	r0, #999
+ 197              	.LVL13:
+ 198              	.L9:
+  32:Core/Src/HAL_Ultrasonic.c ****         }
+  33:Core/Src/HAL_Ultrasonic.c ****     }
+  34:Core/Src/HAL_Ultrasonic.c ****     Value1 = __HAL_TIM_GET_COUNTER(us_htim);
+  35:Core/Src/HAL_Ultrasonic.c **** 
+  36:Core/Src/HAL_Ultrasonic.c ****     pMillis = HAL_GetTick();
+  37:Core/Src/HAL_Ultrasonic.c ****     while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10)) {
+  38:Core/Src/HAL_Ultrasonic.c ****         if ((HAL_GetTick() - pMillis) > 50) {
+  39:Core/Src/HAL_Ultrasonic.c ****             return 999; 
+  40:Core/Src/HAL_Ultrasonic.c ****         }
+  41:Core/Src/HAL_Ultrasonic.c ****     }
+  42:Core/Src/HAL_Ultrasonic.c ****     Value2 = __HAL_TIM_GET_COUNTER(us_htim);
+  43:Core/Src/HAL_Ultrasonic.c **** 
+  44:Core/Src/HAL_Ultrasonic.c ****     uint32_t time_taken;
+  45:Core/Src/HAL_Ultrasonic.c ****     if (Value2 >= Value1) {
+  46:Core/Src/HAL_Ultrasonic.c ****         time_taken = Value2 - Value1;
+  47:Core/Src/HAL_Ultrasonic.c ****     } else {
+  48:Core/Src/HAL_Ultrasonic.c ****         time_taken = (65535 - Value1) + Value2;
+  49:Core/Src/HAL_Ultrasonic.c ****     }
+  50:Core/Src/HAL_Ultrasonic.c **** 
+  51:Core/Src/HAL_Ultrasonic.c ****     uint32_t distance = (time_taken * 34) / 2000;
+  52:Core/Src/HAL_Ultrasonic.c **** 
+  53:Core/Src/HAL_Ultrasonic.c ****     if (distance == 0 || distance > 400) {
+  54:Core/Src/HAL_Ultrasonic.c ****         return 999; 
+  55:Core/Src/HAL_Ultrasonic.c ****     }
+  56:Core/Src/HAL_Ultrasonic.c **** 
+  57:Core/Src/HAL_Ultrasonic.c ****     return distance;
+  58:Core/Src/HAL_Ultrasonic.c **** }...
+ 199              		.loc 1 58 1 view .LVU39
+ 200 0054 38BD     		pop	{r3, r4, r5, pc}
+ 201              	.LVL14:
+ 202              	.L21:
+  34:Core/Src/HAL_Ultrasonic.c ****     Value1 = __HAL_TIM_GET_COUNTER(us_htim);
+ 203              		.loc 1 34 5 is_stmt 1 view .LVU40
+  34:Core/Src/HAL_Ultrasonic.c ****     Value1 = __HAL_TIM_GET_COUNTER(us_htim);
+ 204              		.loc 1 34 14 is_stmt 0 view .LVU41
+ 205 0056 184B     		ldr	r3, .L23+4
+ 206 0058 1B68     		ldr	r3, [r3]
+ 207 005a 1B68     		ldr	r3, [r3]
+  34:Core/Src/HAL_Ultrasonic.c ****     Value1 = __HAL_TIM_GET_COUNTER(us_htim);
+ 208              		.loc 1 34 12 view .LVU42
+ 209 005c 5D6A     		ldr	r5, [r3, #36]
+ 210              	.LVL15:
+  36:Core/Src/HAL_Ultrasonic.c ****     pMillis = HAL_GetTick();
+ 211              		.loc 1 36 5 is_stmt 1 view .LVU43
+  36:Core/Src/HAL_Ultrasonic.c ****     pMillis = HAL_GetTick();
+ 212              		.loc 1 36 15 is_stmt 0 view .LVU44
+ 213 005e FFF7FEFF 		bl	HAL_GetTick
+ 214              	.LVL16:
+ 215 0062 0446     		mov	r4, r0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 6
+
+
+ 216              	.LVL17:
+  37:Core/Src/HAL_Ultrasonic.c ****     while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10)) {
+ 217              		.loc 1 37 5 is_stmt 1 view .LVU45
+ 218              	.L13:
+  37:Core/Src/HAL_Ultrasonic.c ****     while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10)) {
+ 219              		.loc 1 37 12 view .LVU46
+ 220 0064 4FF48061 		mov	r1, #1024
+ 221 0068 1248     		ldr	r0, .L23
+ 222 006a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 223              	.LVL18:
+  37:Core/Src/HAL_Ultrasonic.c ****     while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10)) {
+ 224              		.loc 1 37 12 is_stmt 0 discriminator 1 view .LVU47
+ 225 006e 38B1     		cbz	r0, .L22
+  38:Core/Src/HAL_Ultrasonic.c ****         if ((HAL_GetTick() - pMillis) > 50) {
+ 226              		.loc 1 38 9 is_stmt 1 view .LVU48
+  38:Core/Src/HAL_Ultrasonic.c ****         if ((HAL_GetTick() - pMillis) > 50) {
+ 227              		.loc 1 38 14 is_stmt 0 view .LVU49
+ 228 0070 FFF7FEFF 		bl	HAL_GetTick
+ 229              	.LVL19:
+  38:Core/Src/HAL_Ultrasonic.c ****         if ((HAL_GetTick() - pMillis) > 50) {
+ 230              		.loc 1 38 28 discriminator 1 view .LVU50
+ 231 0074 001B     		subs	r0, r0, r4
+  38:Core/Src/HAL_Ultrasonic.c ****         if ((HAL_GetTick() - pMillis) > 50) {
+ 232              		.loc 1 38 12 discriminator 1 view .LVU51
+ 233 0076 3228     		cmp	r0, #50
+ 234 0078 F4D9     		bls	.L13
+  39:Core/Src/HAL_Ultrasonic.c ****             return 999; 
+ 235              		.loc 1 39 20 view .LVU52
+ 236 007a 40F2E730 		movw	r0, #999
+ 237 007e E9E7     		b	.L9
+ 238              	.L22:
+  42:Core/Src/HAL_Ultrasonic.c ****     Value2 = __HAL_TIM_GET_COUNTER(us_htim);
+ 239              		.loc 1 42 5 is_stmt 1 view .LVU53
+  42:Core/Src/HAL_Ultrasonic.c ****     Value2 = __HAL_TIM_GET_COUNTER(us_htim);
+ 240              		.loc 1 42 14 is_stmt 0 view .LVU54
+ 241 0080 0D4B     		ldr	r3, .L23+4
+ 242 0082 1B68     		ldr	r3, [r3]
+ 243 0084 1B68     		ldr	r3, [r3]
+  42:Core/Src/HAL_Ultrasonic.c ****     Value2 = __HAL_TIM_GET_COUNTER(us_htim);
+ 244              		.loc 1 42 12 view .LVU55
+ 245 0086 5B6A     		ldr	r3, [r3, #36]
+ 246              	.LVL20:
+  44:Core/Src/HAL_Ultrasonic.c ****     uint32_t time_taken;
+ 247              		.loc 1 44 5 is_stmt 1 view .LVU56
+  45:Core/Src/HAL_Ultrasonic.c ****     if (Value2 >= Value1) {
+ 248              		.loc 1 45 5 view .LVU57
+  45:Core/Src/HAL_Ultrasonic.c ****     if (Value2 >= Value1) {
+ 249              		.loc 1 45 8 is_stmt 0 view .LVU58
+ 250 0088 9D42     		cmp	r5, r3
+ 251 008a 0ED8     		bhi	.L15
+  46:Core/Src/HAL_Ultrasonic.c ****         time_taken = Value2 - Value1;
+ 252              		.loc 1 46 9 is_stmt 1 view .LVU59
+  46:Core/Src/HAL_Ultrasonic.c ****         time_taken = Value2 - Value1;
+ 253              		.loc 1 46 20 is_stmt 0 view .LVU60
+ 254 008c 5B1B     		subs	r3, r3, r5
+ 255              	.LVL21:
+ 256              	.L16:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 7
+
+
+  51:Core/Src/HAL_Ultrasonic.c ****     uint32_t distance = (time_taken * 34) / 2000;
+ 257              		.loc 1 51 5 is_stmt 1 view .LVU61
+  51:Core/Src/HAL_Ultrasonic.c ****     uint32_t distance = (time_taken * 34) / 2000;
+ 258              		.loc 1 51 37 is_stmt 0 view .LVU62
+ 259 008e 03EB0310 		add	r0, r3, r3, lsl #4
+ 260 0092 4000     		lsls	r0, r0, #1
+  51:Core/Src/HAL_Ultrasonic.c ****     uint32_t distance = (time_taken * 34) / 2000;
+ 261              		.loc 1 51 14 view .LVU63
+ 262 0094 094B     		ldr	r3, .L23+8
+ 263              	.LVL22:
+  51:Core/Src/HAL_Ultrasonic.c ****     uint32_t distance = (time_taken * 34) / 2000;
+ 264              		.loc 1 51 14 view .LVU64
+ 265 0096 A3FB0030 		umull	r3, r0, r3, r0
+ 266 009a C009     		lsrs	r0, r0, #7
+ 267              	.LVL23:
+  53:Core/Src/HAL_Ultrasonic.c ****     if (distance == 0 || distance > 400) {
+ 268              		.loc 1 53 5 is_stmt 1 view .LVU65
+  53:Core/Src/HAL_Ultrasonic.c ****     if (distance == 0 || distance > 400) {
+ 269              		.loc 1 53 23 is_stmt 0 view .LVU66
+ 270 009c 431E     		subs	r3, r0, #1
+  53:Core/Src/HAL_Ultrasonic.c ****     if (distance == 0 || distance > 400) {
+ 271              		.loc 1 53 8 view .LVU67
+ 272 009e B3F5C87F 		cmp	r3, #400
+ 273 00a2 D7D3     		bcc	.L9
+  54:Core/Src/HAL_Ultrasonic.c ****         return 999; 
+ 274              		.loc 1 54 16 view .LVU68
+ 275 00a4 40F2E730 		movw	r0, #999
+ 276              	.LVL24:
+  54:Core/Src/HAL_Ultrasonic.c ****         return 999; 
+ 277              		.loc 1 54 16 view .LVU69
+ 278 00a8 D4E7     		b	.L9
+ 279              	.LVL25:
+ 280              	.L15:
+  48:Core/Src/HAL_Ultrasonic.c ****         time_taken = (65535 - Value1) + Value2;
+ 281              		.loc 1 48 9 is_stmt 1 view .LVU70
+  48:Core/Src/HAL_Ultrasonic.c ****         time_taken = (65535 - Value1) + Value2;
+ 282              		.loc 1 48 39 is_stmt 0 view .LVU71
+ 283 00aa 5B1B     		subs	r3, r3, r5
+ 284              	.LVL26:
+  48:Core/Src/HAL_Ultrasonic.c ****         time_taken = (65535 - Value1) + Value2;
+ 285              		.loc 1 48 20 view .LVU72
+ 286 00ac 03F57F43 		add	r3, r3, #65280
+ 287 00b0 FF33     		adds	r3, r3, #255
+ 288 00b2 ECE7     		b	.L16
+ 289              	.L24:
+ 290              		.align	2
+ 291              	.L23:
+ 292 00b4 00000240 		.word	1073872896
+ 293 00b8 00000000 		.word	us_htim
+ 294 00bc D34D6210 		.word	274877907
+ 295              		.cfi_endproc
+ 296              	.LFE136:
+ 298              		.section	.bss.us_htim,"aw",%nobits
+ 299              		.align	2
+ 302              	us_htim:
+ 303 0000 00000000 		.space	4
+ 304              		.text
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 8
+
+
+ 305              	.Letext0:
+ 306              		.file 2 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 307              		.file 3 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 308              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 309              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 310              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 311              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 312              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 313              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 HAL_Ultrasonic.c
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:21     .text.delay_us:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:26     .text.delay_us:00000000 delay_us
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:54     .text.delay_us:00000014 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:302    .bss.us_htim:00000000 us_htim
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:59     .text.Ultrasonic_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:65     .text.Ultrasonic_Init:00000000 Ultrasonic_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:114    .text.Ultrasonic_Init:00000028 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:120    .text.Ultrasonic_Read_Distance:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:126    .text.Ultrasonic_Read_Distance:00000000 Ultrasonic_Read_Distance
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:292    .text.Ultrasonic_Read_Distance:000000b4 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccquroB2.s:299    .bss.us_htim:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_TIM_Base_Start
+HAL_GPIO_WritePin
+HAL_GetTick
+HAL_GPIO_ReadPin

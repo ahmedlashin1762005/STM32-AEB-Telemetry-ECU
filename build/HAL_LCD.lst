@@ -1,0 +1,643 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"HAL_LCD.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/HAL_LCD.c"
+  20              		.section	.text.LCD_Delay_us,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	LCD_Delay_us:
+  27              	.LVL0:
+  28              	.LFB137:
+   1:Core/Src/HAL_LCD.c **** #include "HAL_LCD.h"
+   2:Core/Src/HAL_LCD.c **** #include <stdio.h>
+   3:Core/Src/HAL_LCD.c **** 
+   4:Core/Src/HAL_LCD.c **** extern TIM_HandleTypeDef htim1;
+   5:Core/Src/HAL_LCD.c **** 
+   6:Core/Src/HAL_LCD.c **** static void LCD_Delay_us(uint16_t us) {
+  29              		.loc 1 6 39 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+   7:Core/Src/HAL_LCD.c ****     __HAL_TIM_SET_COUNTER(&htim1, 0);
+  34              		.loc 1 7 5 view .LVU1
+  35 0000 034B     		ldr	r3, .L3
+  36 0002 1A68     		ldr	r2, [r3]
+  37 0004 0023     		movs	r3, #0
+  38 0006 5362     		str	r3, [r2, #36]
+   8:Core/Src/HAL_LCD.c ****     while (__HAL_TIM_GET_COUNTER(&htim1) < us);
+  39              		.loc 1 8 5 view .LVU2
+  40              	.L2:
+  41              		.loc 1 8 42 discriminator 1 view .LVU3
+  42              		.loc 1 8 12 is_stmt 0 discriminator 1 view .LVU4
+  43 0008 536A     		ldr	r3, [r2, #36]
+  44              		.loc 1 8 42 discriminator 1 view .LVU5
+  45 000a 8342     		cmp	r3, r0
+  46 000c FCD3     		bcc	.L2
+   9:Core/Src/HAL_LCD.c **** }
+  47              		.loc 1 9 1 view .LVU6
+  48 000e 7047     		bx	lr
+  49              	.L4:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 2
+
+
+  50              		.align	2
+  51              	.L3:
+  52 0010 00000000 		.word	htim1
+  53              		.cfi_endproc
+  54              	.LFE137:
+  56              		.section	.text.LCD_SendNibble,"ax",%progbits
+  57              		.align	1
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  62              	LCD_SendNibble:
+  63              	.LVL1:
+  64              	.LFB138:
+  10:Core/Src/HAL_LCD.c **** 
+  11:Core/Src/HAL_LCD.c **** static void LCD_SendNibble(uint8_t nibble) {
+  65              		.loc 1 11 44 is_stmt 1 view -0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		.loc 1 11 44 is_stmt 0 view .LVU8
+  70 0000 70B5     		push	{r4, r5, r6, lr}
+  71              	.LCFI0:
+  72              		.cfi_def_cfa_offset 16
+  73              		.cfi_offset 4, -16
+  74              		.cfi_offset 5, -12
+  75              		.cfi_offset 6, -8
+  76              		.cfi_offset 14, -4
+  77 0002 0446     		mov	r4, r0
+  12:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, (nibble >> 0) & 0x01);
+  78              		.loc 1 12 5 is_stmt 1 view .LVU9
+  79 0004 154D     		ldr	r5, .L7
+  80 0006 00F00102 		and	r2, r0, #1
+  81 000a 1021     		movs	r1, #16
+  82 000c 2846     		mov	r0, r5
+  83              	.LVL2:
+  84              		.loc 1 12 5 is_stmt 0 view .LVU10
+  85 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  86              	.LVL3:
+  13:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (nibble >> 1) & 0x01);
+  87              		.loc 1 13 5 is_stmt 1 view .LVU11
+  88 0012 C4F34002 		ubfx	r2, r4, #1, #1
+  89 0016 0121     		movs	r1, #1
+  90 0018 1148     		ldr	r0, .L7+4
+  91 001a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  92              	.LVL4:
+  14:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, (nibble >> 2) & 0x01);
+  93              		.loc 1 14 5 view .LVU12
+  94 001e 114E     		ldr	r6, .L7+8
+  95 0020 C4F38002 		ubfx	r2, r4, #2, #1
+  96 0024 0221     		movs	r1, #2
+  97 0026 3046     		mov	r0, r6
+  98 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  99              	.LVL5:
+  15:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, (nibble >> 3) & 0x01);
+ 100              		.loc 1 15 5 view .LVU13
+ 101 002c C4F3C002 		ubfx	r2, r4, #3, #1
+ 102 0030 0121     		movs	r1, #1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 3
+
+
+ 103 0032 3046     		mov	r0, r6
+ 104 0034 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 105              	.LVL6:
+  16:Core/Src/HAL_LCD.c **** 
+  17:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+ 106              		.loc 1 17 5 view .LVU14
+ 107 0038 0122     		movs	r2, #1
+ 108 003a 0221     		movs	r1, #2
+ 109 003c 2846     		mov	r0, r5
+ 110 003e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 111              	.LVL7:
+  18:Core/Src/HAL_LCD.c ****     LCD_Delay_us(5);
+ 112              		.loc 1 18 5 view .LVU15
+ 113 0042 0520     		movs	r0, #5
+ 114 0044 FFF7FEFF 		bl	LCD_Delay_us
+ 115              	.LVL8:
+  19:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+ 116              		.loc 1 19 5 view .LVU16
+ 117 0048 0022     		movs	r2, #0
+ 118 004a 0221     		movs	r1, #2
+ 119 004c 2846     		mov	r0, r5
+ 120 004e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 121              	.LVL9:
+  20:Core/Src/HAL_LCD.c ****     LCD_Delay_us(100);
+ 122              		.loc 1 20 5 view .LVU17
+ 123 0052 6420     		movs	r0, #100
+ 124 0054 FFF7FEFF 		bl	LCD_Delay_us
+ 125              	.LVL10:
+  21:Core/Src/HAL_LCD.c **** }
+ 126              		.loc 1 21 1 is_stmt 0 view .LVU18
+ 127 0058 70BD     		pop	{r4, r5, r6, pc}
+ 128              	.LVL11:
+ 129              	.L8:
+ 130              		.loc 1 21 1 view .LVU19
+ 131 005a 00BF     		.align	2
+ 132              	.L7:
+ 133 005c 00000240 		.word	1073872896
+ 134 0060 00040240 		.word	1073873920
+ 135 0064 00080240 		.word	1073874944
+ 136              		.cfi_endproc
+ 137              	.LFE138:
+ 139              		.section	.text.LCD_SendCommand,"ax",%progbits
+ 140              		.align	1
+ 141              		.syntax unified
+ 142              		.thumb
+ 143              		.thumb_func
+ 145              	LCD_SendCommand:
+ 146              	.LVL12:
+ 147              	.LFB139:
+  22:Core/Src/HAL_LCD.c **** 
+  23:Core/Src/HAL_LCD.c **** static void LCD_SendCommand(uint8_t cmd) {
+ 148              		.loc 1 23 42 is_stmt 1 view -0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              		.loc 1 23 42 is_stmt 0 view .LVU21
+ 153 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 4
+
+
+ 154              	.LCFI1:
+ 155              		.cfi_def_cfa_offset 8
+ 156              		.cfi_offset 4, -8
+ 157              		.cfi_offset 14, -4
+ 158 0002 0446     		mov	r4, r0
+  24:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+ 159              		.loc 1 24 5 is_stmt 1 view .LVU22
+ 160 0004 0022     		movs	r2, #0
+ 161 0006 0121     		movs	r1, #1
+ 162 0008 0648     		ldr	r0, .L11
+ 163              	.LVL13:
+ 164              		.loc 1 24 5 is_stmt 0 view .LVU23
+ 165 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 166              	.LVL14:
+  25:Core/Src/HAL_LCD.c ****     LCD_SendNibble(cmd >> 4);
+ 167              		.loc 1 25 5 is_stmt 1 view .LVU24
+ 168 000e 2009     		lsrs	r0, r4, #4
+ 169 0010 FFF7FEFF 		bl	LCD_SendNibble
+ 170              	.LVL15:
+  26:Core/Src/HAL_LCD.c ****     LCD_SendNibble(cmd & 0x0F);
+ 171              		.loc 1 26 5 view .LVU25
+ 172 0014 04F00F00 		and	r0, r4, #15
+ 173 0018 FFF7FEFF 		bl	LCD_SendNibble
+ 174              	.LVL16:
+  27:Core/Src/HAL_LCD.c ****     HAL_Delay(2);
+ 175              		.loc 1 27 5 view .LVU26
+ 176 001c 0220     		movs	r0, #2
+ 177 001e FFF7FEFF 		bl	HAL_Delay
+ 178              	.LVL17:
+  28:Core/Src/HAL_LCD.c **** }
+ 179              		.loc 1 28 1 is_stmt 0 view .LVU27
+ 180 0022 10BD     		pop	{r4, pc}
+ 181              	.LVL18:
+ 182              	.L12:
+ 183              		.loc 1 28 1 view .LVU28
+ 184              		.align	2
+ 185              	.L11:
+ 186 0024 00000240 		.word	1073872896
+ 187              		.cfi_endproc
+ 188              	.LFE139:
+ 190              		.section	.text.LCD_SendData,"ax",%progbits
+ 191              		.align	1
+ 192              		.syntax unified
+ 193              		.thumb
+ 194              		.thumb_func
+ 196              	LCD_SendData:
+ 197              	.LVL19:
+ 198              	.LFB140:
+  29:Core/Src/HAL_LCD.c **** 
+  30:Core/Src/HAL_LCD.c **** static void LCD_SendData(uint8_t data) {
+ 199              		.loc 1 30 40 is_stmt 1 view -0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              		.loc 1 30 40 is_stmt 0 view .LVU30
+ 204 0000 10B5     		push	{r4, lr}
+ 205              	.LCFI2:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 5
+
+
+ 206              		.cfi_def_cfa_offset 8
+ 207              		.cfi_offset 4, -8
+ 208              		.cfi_offset 14, -4
+ 209 0002 0446     		mov	r4, r0
+  31:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+ 210              		.loc 1 31 5 is_stmt 1 view .LVU31
+ 211 0004 0122     		movs	r2, #1
+ 212 0006 1146     		mov	r1, r2
+ 213 0008 0648     		ldr	r0, .L15
+ 214              	.LVL20:
+ 215              		.loc 1 31 5 is_stmt 0 view .LVU32
+ 216 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 217              	.LVL21:
+  32:Core/Src/HAL_LCD.c ****     LCD_SendNibble(data >> 4);
+ 218              		.loc 1 32 5 is_stmt 1 view .LVU33
+ 219 000e 2009     		lsrs	r0, r4, #4
+ 220 0010 FFF7FEFF 		bl	LCD_SendNibble
+ 221              	.LVL22:
+  33:Core/Src/HAL_LCD.c ****     LCD_SendNibble(data & 0x0F);
+ 222              		.loc 1 33 5 view .LVU34
+ 223 0014 04F00F00 		and	r0, r4, #15
+ 224 0018 FFF7FEFF 		bl	LCD_SendNibble
+ 225              	.LVL23:
+  34:Core/Src/HAL_LCD.c ****     LCD_Delay_us(100);
+ 226              		.loc 1 34 5 view .LVU35
+ 227 001c 6420     		movs	r0, #100
+ 228 001e FFF7FEFF 		bl	LCD_Delay_us
+ 229              	.LVL24:
+  35:Core/Src/HAL_LCD.c **** }
+ 230              		.loc 1 35 1 is_stmt 0 view .LVU36
+ 231 0022 10BD     		pop	{r4, pc}
+ 232              	.LVL25:
+ 233              	.L16:
+ 234              		.loc 1 35 1 view .LVU37
+ 235              		.align	2
+ 236              	.L15:
+ 237 0024 00000240 		.word	1073872896
+ 238              		.cfi_endproc
+ 239              	.LFE140:
+ 241              		.section	.text.LCD_Clear,"ax",%progbits
+ 242              		.align	1
+ 243              		.global	LCD_Clear
+ 244              		.syntax unified
+ 245              		.thumb
+ 246              		.thumb_func
+ 248              	LCD_Clear:
+ 249              	.LFB142:
+  36:Core/Src/HAL_LCD.c **** 
+  37:Core/Src/HAL_LCD.c **** void LCD_Init(void) {
+  38:Core/Src/HAL_LCD.c ****     HAL_Delay(50); 
+  39:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+  40:Core/Src/HAL_LCD.c ****     
+  41:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03); HAL_Delay(5);
+  42:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03); HAL_Delay(1);
+  43:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03);
+  44:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x02); 
+  45:Core/Src/HAL_LCD.c **** 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 6
+
+
+  46:Core/Src/HAL_LCD.c ****     LCD_SendCommand(0x28);
+  47:Core/Src/HAL_LCD.c ****     LCD_SendCommand(0x0C);
+  48:Core/Src/HAL_LCD.c ****     LCD_SendCommand(0x06);
+  49:Core/Src/HAL_LCD.c ****     LCD_Clear();
+  50:Core/Src/HAL_LCD.c **** }
+  51:Core/Src/HAL_LCD.c **** 
+  52:Core/Src/HAL_LCD.c **** void LCD_Clear(void) {
+ 250              		.loc 1 52 22 is_stmt 1 view -0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254 0000 08B5     		push	{r3, lr}
+ 255              	.LCFI3:
+ 256              		.cfi_def_cfa_offset 8
+ 257              		.cfi_offset 3, -8
+ 258              		.cfi_offset 14, -4
+  53:Core/Src/HAL_LCD.c ****     LCD_SendCommand(0x01);
+ 259              		.loc 1 53 5 view .LVU39
+ 260 0002 0120     		movs	r0, #1
+ 261 0004 FFF7FEFF 		bl	LCD_SendCommand
+ 262              	.LVL26:
+  54:Core/Src/HAL_LCD.c ****     HAL_Delay(2);
+ 263              		.loc 1 54 5 view .LVU40
+ 264 0008 0220     		movs	r0, #2
+ 265 000a FFF7FEFF 		bl	HAL_Delay
+ 266              	.LVL27:
+  55:Core/Src/HAL_LCD.c **** }
+ 267              		.loc 1 55 1 is_stmt 0 view .LVU41
+ 268 000e 08BD     		pop	{r3, pc}
+ 269              		.cfi_endproc
+ 270              	.LFE142:
+ 272              		.section	.text.LCD_Init,"ax",%progbits
+ 273              		.align	1
+ 274              		.global	LCD_Init
+ 275              		.syntax unified
+ 276              		.thumb
+ 277              		.thumb_func
+ 279              	LCD_Init:
+ 280              	.LFB141:
+  37:Core/Src/HAL_LCD.c ****     HAL_Delay(50); 
+ 281              		.loc 1 37 21 is_stmt 1 view -0
+ 282              		.cfi_startproc
+ 283              		@ args = 0, pretend = 0, frame = 0
+ 284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 285 0000 08B5     		push	{r3, lr}
+ 286              	.LCFI4:
+ 287              		.cfi_def_cfa_offset 8
+ 288              		.cfi_offset 3, -8
+ 289              		.cfi_offset 14, -4
+  38:Core/Src/HAL_LCD.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+ 290              		.loc 1 38 5 view .LVU43
+ 291 0002 3220     		movs	r0, #50
+ 292 0004 FFF7FEFF 		bl	HAL_Delay
+ 293              	.LVL28:
+  39:Core/Src/HAL_LCD.c ****     
+ 294              		.loc 1 39 5 view .LVU44
+ 295 0008 0022     		movs	r2, #0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 7
+
+
+ 296 000a 0121     		movs	r1, #1
+ 297 000c 1048     		ldr	r0, .L21
+ 298 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 299              	.LVL29:
+  41:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03); HAL_Delay(1);
+ 300              		.loc 1 41 5 view .LVU45
+ 301 0012 0320     		movs	r0, #3
+ 302 0014 FFF7FEFF 		bl	LCD_SendNibble
+ 303              	.LVL30:
+  41:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03); HAL_Delay(1);
+ 304              		.loc 1 41 27 discriminator 1 view .LVU46
+ 305 0018 0520     		movs	r0, #5
+ 306 001a FFF7FEFF 		bl	HAL_Delay
+ 307              	.LVL31:
+  42:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03);
+ 308              		.loc 1 42 5 view .LVU47
+ 309 001e 0320     		movs	r0, #3
+ 310 0020 FFF7FEFF 		bl	LCD_SendNibble
+ 311              	.LVL32:
+  42:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x03);
+ 312              		.loc 1 42 27 discriminator 1 view .LVU48
+ 313 0024 0120     		movs	r0, #1
+ 314 0026 FFF7FEFF 		bl	HAL_Delay
+ 315              	.LVL33:
+  43:Core/Src/HAL_LCD.c ****     LCD_SendNibble(0x02); 
+ 316              		.loc 1 43 5 view .LVU49
+ 317 002a 0320     		movs	r0, #3
+ 318 002c FFF7FEFF 		bl	LCD_SendNibble
+ 319              	.LVL34:
+  44:Core/Src/HAL_LCD.c **** 
+ 320              		.loc 1 44 5 view .LVU50
+ 321 0030 0220     		movs	r0, #2
+ 322 0032 FFF7FEFF 		bl	LCD_SendNibble
+ 323              	.LVL35:
+  46:Core/Src/HAL_LCD.c ****     LCD_SendCommand(0x0C);
+ 324              		.loc 1 46 5 view .LVU51
+ 325 0036 2820     		movs	r0, #40
+ 326 0038 FFF7FEFF 		bl	LCD_SendCommand
+ 327              	.LVL36:
+  47:Core/Src/HAL_LCD.c ****     LCD_SendCommand(0x06);
+ 328              		.loc 1 47 5 view .LVU52
+ 329 003c 0C20     		movs	r0, #12
+ 330 003e FFF7FEFF 		bl	LCD_SendCommand
+ 331              	.LVL37:
+  48:Core/Src/HAL_LCD.c ****     LCD_Clear();
+ 332              		.loc 1 48 5 view .LVU53
+ 333 0042 0620     		movs	r0, #6
+ 334 0044 FFF7FEFF 		bl	LCD_SendCommand
+ 335              	.LVL38:
+  49:Core/Src/HAL_LCD.c **** }
+ 336              		.loc 1 49 5 view .LVU54
+ 337 0048 FFF7FEFF 		bl	LCD_Clear
+ 338              	.LVL39:
+  50:Core/Src/HAL_LCD.c **** 
+ 339              		.loc 1 50 1 is_stmt 0 view .LVU55
+ 340 004c 08BD     		pop	{r3, pc}
+ 341              	.L22:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 8
+
+
+ 342 004e 00BF     		.align	2
+ 343              	.L21:
+ 344 0050 00000240 		.word	1073872896
+ 345              		.cfi_endproc
+ 346              	.LFE141:
+ 348              		.section	.text.LCD_SetCursor,"ax",%progbits
+ 349              		.align	1
+ 350              		.global	LCD_SetCursor
+ 351              		.syntax unified
+ 352              		.thumb
+ 353              		.thumb_func
+ 355              	LCD_SetCursor:
+ 356              	.LVL40:
+ 357              	.LFB143:
+  56:Core/Src/HAL_LCD.c **** 
+  57:Core/Src/HAL_LCD.c **** void LCD_SetCursor(uint8_t row, uint8_t col) {
+ 358              		.loc 1 57 46 is_stmt 1 view -0
+ 359              		.cfi_startproc
+ 360              		@ args = 0, pretend = 0, frame = 0
+ 361              		@ frame_needed = 0, uses_anonymous_args = 0
+ 362              		.loc 1 57 46 is_stmt 0 view .LVU57
+ 363 0000 08B5     		push	{r3, lr}
+ 364              	.LCFI5:
+ 365              		.cfi_def_cfa_offset 8
+ 366              		.cfi_offset 3, -8
+ 367              		.cfi_offset 14, -4
+  58:Core/Src/HAL_LCD.c ****     uint8_t addr = (row == 0) ? (0x80 + col) : (0xC0 + col);
+ 368              		.loc 1 58 5 is_stmt 1 view .LVU58
+ 369              		.loc 1 58 13 is_stmt 0 view .LVU59
+ 370 0002 20B9     		cbnz	r0, .L24
+ 371              		.loc 1 58 13 discriminator 1 view .LVU60
+ 372 0004 81F08000 		eor	r0, r1, #128
+ 373              	.LVL41:
+ 374              	.L25:
+  59:Core/Src/HAL_LCD.c ****     LCD_SendCommand(addr);
+ 375              		.loc 1 59 5 is_stmt 1 view .LVU61
+ 376 0008 FFF7FEFF 		bl	LCD_SendCommand
+ 377              	.LVL42:
+  60:Core/Src/HAL_LCD.c **** }
+ 378              		.loc 1 60 1 is_stmt 0 view .LVU62
+ 379 000c 08BD     		pop	{r3, pc}
+ 380              	.LVL43:
+ 381              	.L24:
+  58:Core/Src/HAL_LCD.c ****     uint8_t addr = (row == 0) ? (0x80 + col) : (0xC0 + col);
+ 382              		.loc 1 58 13 discriminator 2 view .LVU63
+ 383 000e 4039     		subs	r1, r1, #64
+ 384              	.LVL44:
+  58:Core/Src/HAL_LCD.c ****     uint8_t addr = (row == 0) ? (0x80 + col) : (0xC0 + col);
+ 385              		.loc 1 58 13 discriminator 2 view .LVU64
+ 386 0010 C8B2     		uxtb	r0, r1
+ 387              	.LVL45:
+  58:Core/Src/HAL_LCD.c ****     uint8_t addr = (row == 0) ? (0x80 + col) : (0xC0 + col);
+ 388              		.loc 1 58 13 discriminator 2 view .LVU65
+ 389 0012 F9E7     		b	.L25
+ 390              		.cfi_endproc
+ 391              	.LFE143:
+ 393              		.section	.text.LCD_SendString,"ax",%progbits
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 9
+
+
+ 394              		.align	1
+ 395              		.global	LCD_SendString
+ 396              		.syntax unified
+ 397              		.thumb
+ 398              		.thumb_func
+ 400              	LCD_SendString:
+ 401              	.LVL46:
+ 402              	.LFB144:
+  61:Core/Src/HAL_LCD.c **** 
+  62:Core/Src/HAL_LCD.c **** void LCD_SendString(char *str) {
+ 403              		.loc 1 62 32 is_stmt 1 view -0
+ 404              		.cfi_startproc
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 0, uses_anonymous_args = 0
+ 407              		.loc 1 62 32 is_stmt 0 view .LVU67
+ 408 0000 10B5     		push	{r4, lr}
+ 409              	.LCFI6:
+ 410              		.cfi_def_cfa_offset 8
+ 411              		.cfi_offset 4, -8
+ 412              		.cfi_offset 14, -4
+ 413 0002 0446     		mov	r4, r0
+  63:Core/Src/HAL_LCD.c ****     while (*str) {
+ 414              		.loc 1 63 5 is_stmt 1 view .LVU68
+ 415              		.loc 1 63 11 is_stmt 0 view .LVU69
+ 416 0004 02E0     		b	.L28
+ 417              	.LVL47:
+ 418              	.L29:
+  64:Core/Src/HAL_LCD.c ****         LCD_SendData(*str++);
+ 419              		.loc 1 64 9 is_stmt 1 view .LVU70
+ 420              		.loc 1 64 26 is_stmt 0 view .LVU71
+ 421 0006 0134     		adds	r4, r4, #1
+ 422              	.LVL48:
+ 423              		.loc 1 64 9 view .LVU72
+ 424 0008 FFF7FEFF 		bl	LCD_SendData
+ 425              	.LVL49:
+ 426              	.L28:
+  63:Core/Src/HAL_LCD.c ****     while (*str) {
+ 427              		.loc 1 63 12 is_stmt 1 view .LVU73
+ 428 000c 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 429 000e 0028     		cmp	r0, #0
+ 430 0010 F9D1     		bne	.L29
+  65:Core/Src/HAL_LCD.c ****     }
+  66:Core/Src/HAL_LCD.c **** }
+ 431              		.loc 1 66 1 is_stmt 0 view .LVU74
+ 432 0012 10BD     		pop	{r4, pc}
+ 433              		.loc 1 66 1 view .LVU75
+ 434              		.cfi_endproc
+ 435              	.LFE144:
+ 437              		.section	.rodata.LCD_PrintNumber.str1.4,"aMS",%progbits,1
+ 438              		.align	2
+ 439              	.LC0:
+ 440 0000 256C7500 		.ascii	"%lu\000"
+ 441              		.section	.text.LCD_PrintNumber,"ax",%progbits
+ 442              		.align	1
+ 443              		.global	LCD_PrintNumber
+ 444              		.syntax unified
+ 445              		.thumb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 10
+
+
+ 446              		.thumb_func
+ 448              	LCD_PrintNumber:
+ 449              	.LVL50:
+ 450              	.LFB145:
+  67:Core/Src/HAL_LCD.c **** 
+  68:Core/Src/HAL_LCD.c **** void LCD_PrintNumber(uint32_t num) {
+ 451              		.loc 1 68 36 is_stmt 1 view -0
+ 452              		.cfi_startproc
+ 453              		@ args = 0, pretend = 0, frame = 16
+ 454              		@ frame_needed = 0, uses_anonymous_args = 0
+ 455              		.loc 1 68 36 is_stmt 0 view .LVU77
+ 456 0000 10B5     		push	{r4, lr}
+ 457              	.LCFI7:
+ 458              		.cfi_def_cfa_offset 8
+ 459              		.cfi_offset 4, -8
+ 460              		.cfi_offset 14, -4
+ 461 0002 84B0     		sub	sp, sp, #16
+ 462              	.LCFI8:
+ 463              		.cfi_def_cfa_offset 24
+ 464 0004 0346     		mov	r3, r0
+  69:Core/Src/HAL_LCD.c ****     char buf[10];
+ 465              		.loc 1 69 5 is_stmt 1 view .LVU78
+  70:Core/Src/HAL_LCD.c ****     snprintf(buf, sizeof(buf), "%lu", num);
+ 466              		.loc 1 70 5 view .LVU79
+ 467 0006 01AC     		add	r4, sp, #4
+ 468 0008 044A     		ldr	r2, .L33
+ 469 000a 0A21     		movs	r1, #10
+ 470 000c 2046     		mov	r0, r4
+ 471              	.LVL51:
+ 472              		.loc 1 70 5 is_stmt 0 view .LVU80
+ 473 000e FFF7FEFF 		bl	snprintf
+ 474              	.LVL52:
+  71:Core/Src/HAL_LCD.c ****     LCD_SendString(buf);
+ 475              		.loc 1 71 5 is_stmt 1 view .LVU81
+ 476 0012 2046     		mov	r0, r4
+ 477 0014 FFF7FEFF 		bl	LCD_SendString
+ 478              	.LVL53:
+  72:Core/Src/HAL_LCD.c **** }...
+ 479              		.loc 1 72 1 is_stmt 0 view .LVU82
+ 480 0018 04B0     		add	sp, sp, #16
+ 481              	.LCFI9:
+ 482              		.cfi_def_cfa_offset 8
+ 483              		@ sp needed
+ 484 001a 10BD     		pop	{r4, pc}
+ 485              	.L34:
+ 486              		.align	2
+ 487              	.L33:
+ 488 001c 00000000 		.word	.LC0
+ 489              		.cfi_endproc
+ 490              	.LFE145:
+ 492              		.text
+ 493              	.Letext0:
+ 494              		.file 2 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 495              		.file 3 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/../
+ 496              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 497              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 498              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 11
+
+
+ 499              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 500              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 501              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 502              		.file 10 "C:\\ST\\STM32CubeCLT_1.21.0\\GNU-tools-for-STM32\\bin/../lib/gcc/arm-none-eabi/14.3.1/..
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 HAL_LCD.c
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:21     .text.LCD_Delay_us:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:26     .text.LCD_Delay_us:00000000 LCD_Delay_us
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:52     .text.LCD_Delay_us:00000010 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:57     .text.LCD_SendNibble:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:62     .text.LCD_SendNibble:00000000 LCD_SendNibble
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:133    .text.LCD_SendNibble:0000005c $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:140    .text.LCD_SendCommand:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:145    .text.LCD_SendCommand:00000000 LCD_SendCommand
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:186    .text.LCD_SendCommand:00000024 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:191    .text.LCD_SendData:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:196    .text.LCD_SendData:00000000 LCD_SendData
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:237    .text.LCD_SendData:00000024 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:242    .text.LCD_Clear:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:248    .text.LCD_Clear:00000000 LCD_Clear
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:273    .text.LCD_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:279    .text.LCD_Init:00000000 LCD_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:344    .text.LCD_Init:00000050 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:349    .text.LCD_SetCursor:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:355    .text.LCD_SetCursor:00000000 LCD_SetCursor
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:394    .text.LCD_SendString:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:400    .text.LCD_SendString:00000000 LCD_SendString
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:438    .rodata.LCD_PrintNumber.str1.4:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:442    .text.LCD_PrintNumber:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:448    .text.LCD_PrintNumber:00000000 LCD_PrintNumber
+C:\Users\ADMINI~1\AppData\Local\Temp\ccvXP5n3.s:488    .text.LCD_PrintNumber:0000001c $d
+
+UNDEFINED SYMBOLS
+htim1
+HAL_GPIO_WritePin
+HAL_Delay
+snprintf
